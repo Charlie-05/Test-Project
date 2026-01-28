@@ -1,3 +1,108 @@
-.text-center{
-    color: Red;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+}
+
+.game-wrapper {
+    text-align: center;
+    position: relative;
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4ecca3;
+    text-shadow: 0 0 20px rgba(78, 204, 163, 0.4);
+}
+
+.score-bar {
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 1.1rem;
+}
+
+.score-bar strong {
+    color: #4ecca3;
+}
+
+#gameCanvas {
+    display: block;
+    margin: 0 auto;
+    background: #1a1a2e;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border: 2px solid #16213e;
+}
+
+.controls {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+kbd {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    background: #16213e;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 8px;
+}
+
+.game-over p {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+    color: #e63946;
+}
+
+.game-over button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    background: #4ecca3;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.game-over button:hover {
+    background: #3db393;
+    transform: scale(1.05);
+}
+
+.game-over button:active {
+    transform: scale(0.98);
+}
+
+.hidden {
+    display: none !important;
 }
