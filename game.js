@@ -19,6 +19,7 @@
   let highScore = parseInt(localStorage.getItem('snakeHighScore') || '0', 10);
   let gameLoop = null;
   let gameRunning = false;
+  let paused = false;
 
   function init() {
     snake = [
@@ -34,6 +35,7 @@
     highScoreEl.textContent = highScore;
     updateScore();
     gameRunning = true;
+    paused = false;
     if (gameLoop) clearInterval(gameLoop);
     gameLoop = setInterval(tick, 120);
   }
@@ -51,6 +53,10 @@
 
   function tick() {
     if (!gameRunning) return;
+    if (paused) {
+      draw();
+      return;
+    }
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
     if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
@@ -123,6 +129,19 @@
       Math.PI * 2
     );
     ctx.fill();
+
+    if (paused) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#4ecca3';
+      ctx.font = 'bold 28px "Segoe UI", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Paused', canvas.width / 2, canvas.height / 2);
+      ctx.font = '14px "Segoe UI", sans-serif';
+      ctx.fillStyle = '#aaa';
+      ctx.fillText('Press Space to resume', canvas.width / 2, canvas.height / 2 + 36);
+    }
   }
 
   function updateScore() {
@@ -139,7 +158,15 @@
   }
 
   document.addEventListener('keydown', (e) => {
-    if (!gameRunning && e.key !== ' ') return;
+    if (e.key === ' ') {
+      if (gameRunning) {
+        paused = !paused;
+        e.preventDefault();
+      }
+      return;
+    }
+    if (!gameRunning) return;
+    if (paused) return;
     switch (e.key) {
       case 'ArrowUp':
         if (dy !== 1) { dx = 0; dy = -1; }
